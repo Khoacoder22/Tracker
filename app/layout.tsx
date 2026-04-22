@@ -1,6 +1,19 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Caveat, Roboto} from "next/font/google";
 import "./globals.css";
+import { ClerkProvider } from "@clerk/nextjs";
+
+const fontCursive = Caveat({
+  subsets: ['latin'],
+  variable: '--font-cursive', 
+  display: 'swap',
+});
+
+const fontRoboto = Roboto({
+    subsets: ['latin'],
+    variable: '--font-roboto',
+    display: 'swap'
+})
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -23,11 +36,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
+    <ClerkProvider>
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${geistSans.variable} ${geistMono.variable} ${fontCursive.variable} ${fontRoboto.variable}`}
     >
       <body className="min-h-full flex flex-col">{children}</body>
     </html>
+    </ClerkProvider>
   );
 }
